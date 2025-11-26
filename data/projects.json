@@ -1,0 +1,77 @@
+[
+  {
+    "id": "grace-intl",
+    "name": "Grace International",
+    "soilBearingCapacity": 250
+  },
+  {
+    "id": "zaman-textile",
+    "name": "Zaman Textile",
+    "soilBearingCapacity": 300
+  },
+  {
+    "id": "adam-sugar",
+    "name": "Adam Sugar",
+    "soilBearingCapacity": 275
+  },
+  {
+    "id": "premium-textile",
+    "name": "Premium Textile",
+    "soilBearingCapacity": 280
+  },
+  {
+    "id": "muet-care",
+    "name": "MUET (St. Care)",
+    "soilBearingCapacity": 320
+  },
+  {
+    "id": "muet-bus",
+    "name": "MUET (Bus Stand)",
+    "soilBearingCapacity": 320
+  },
+  {
+    "id": "daharki-sugar",
+    "name": "Daharki Sugar",
+    "soilBearingCapacity": 290
+  },
+  {
+    "id": "ghotki-sugar",
+    "name": "Ghotki Sugar",
+    "soilBearingCapacity": 290
+  },
+  {
+    "id": "kausar-solvent",
+    "name": "Kausar Solvent Plant",
+    "soilBearingCapacity": 265
+  },
+  {
+    "id": "al-rahim-textile",
+    "name": "Al-Rahim Textile",
+    "soilBearingCapacity": 310
+  },
+  {
+    "id": "lucky-textile",
+    "name": "Lucky Textile",
+    "soilBearingCapacity": 285
+  },
+  {
+    "id": "fatima-sugar",
+    "name": "Fatima Sugar",
+    "soilBearingCapacity": 295
+  },
+  {
+    "id": "sm-foods",
+    "name": "S.M. Foods",
+    "soilBearingCapacity": 270
+  },
+  {
+    "id": "olympia-chem",
+    "name": "Olympia Chemical",
+    "soilBearingCapacity": 255
+  },
+  {
+    "id": "fazal-textile",
+    "name": "Fazal Textile Unit-2",
+    "soilBearingCapacity": 260
+  }
+]
