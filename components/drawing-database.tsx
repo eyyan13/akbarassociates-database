@@ -7,25 +7,30 @@ import JobSearchUpdate from "./job-search-update"
 import CsvImport from "./csv-import"
 import type { Drawing } from "@/types/drawing"
 import drawingsData from "@/data/drawings.json"
+import projectsData from "@/data/projects.json"
 
 export default function DrawingDatabase() {
   const [searchTerm, setSearchTerm] = useState("")
   const [sortField, setSortField] = useState<keyof Drawing>("projectName")
   const [sortOrder, setSortOrder] = useState<"asc" | "desc">("asc")
-  const [allDrawings, setAllDrawings] = useState<Drawing[]>(() =>
-    (drawingsData as unknown as any[]).map((d, i) => ({ id: d.id ?? `seed-${i}`, preparedBy: d.preparedBy ?? "", ...d })) as Drawing[]
-  )
+  const [allDrawings, setAllDrawings] = useState<Drawing[]>(drawingsData as Drawing[])
+  const [allProjects, setAllProjects] = useState(projectsData)
   const [activeTab, setActiveTab] = useState<"view" | "entry" | "update" | "import">("view")
+  const [filterProject, setFilterProject] = useState<string>("")
 
   const filteredDrawings = useMemo(() => {
     let filtered = allDrawings
+
+    if (filterProject) {
+      filtered = filtered.filter((d) => d.projectName === filterProject)
+    }
 
     if (searchTerm) {
       const term = searchTerm.toLowerCase()
       filtered = filtered.filter(
         (drawing) =>
           drawing.projectName.toLowerCase().includes(term) ||
-          drawing.jobNumber.toLowerCase().includes(term) ||
+          drawing.jobNumber.toLowerCase().startsWith(term) || // Changed to startsWith for partial matching
           drawing.drawingTitle.toLowerCase().includes(term) ||
           drawing.preparedBy?.toLowerCase().includes(term),
       )
@@ -43,7 +48,7 @@ export default function DrawingDatabase() {
     })
 
     return filtered
-  }, [searchTerm, allDrawings, sortField, sortOrder])
+  }, [searchTerm, allDrawings, sortField, sortOrder, filterProject])
 
   const handleAddDrawing = (newDrawing: Drawing) => {
     const updatedDrawings = [newDrawing, ...allDrawings]
@@ -85,6 +90,13 @@ export default function DrawingDatabase() {
     }
   }
 
+  const handleAddProject = (newProject: { id: string; name: string; soilBearingCapacity: number }) => {
+    const updatedProjects = [...allProjects, newProject]
+    setAllProjects(updatedProjects)
+    localStorage.setItem("projectsData", JSON.stringify(updatedProjects))
+    alert("Project added successfully!")
+  }
+
   return (
     <div className="min-h-screen bg-white">
       {/* Header - Not Sticky */}
@@ -123,22 +135,47 @@ export default function DrawingDatabase() {
         {/* VIEW TAB */}
         {activeTab === "view" && (
           <div className="space-y-6">
-            {/* Search Bar */}
-            <div className="relative">
-              <Search className="absolute left-3 top-3.5 text-gray-400" size={20} />
-              <input
-                type="text"
-                placeholder="Search by project, job number, title, or prepared by..."
-                value={searchTerm}
-                onChange={(e) => setSearchTerm(e.target.value)}
-                className="w-full pl-10 pr-4 py-3 border border-gray-300 rounded-lg text-gray-900 placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
-              />
+            {/* Filter and Search Bar */}
+            <div className="space-y-4">
+              <div>
+                <label className="block text-sm font-semibold text-gray-700 mb-2">Filter by Project (Optional)</label>
+                <select
+                  value={filterProject}
+                  onChange={(e) => setFilterProject(e.target.value)}
+                  className="w-full px-4 py-2 border border-gray-300 rounded-lg text-gray-900 focus:outline-none focus:ring-2 focus:ring-blue-500"
+                >
+                  <option value="">Show All Projects</option>
+                  {allProjects.map((project) => (
+                    <option key={project.id} value={project.name}>
+                      {project.name}
+                    </option>
+                  ))}
+                </select>
+                {filterProject && (
+                  <p className="text-sm text-blue-600 mt-2">
+                    Showing drawings for: <span className="font-semibold">{filterProject}</span>
+                  </p>
+                )}
+              </div>
+
+              {/* Search Bar */}
+              <div className="relative">
+                <Search className="absolute left-3 top-3.5 text-gray-400" size={20} />
+                <input
+                  type="text"
+                  placeholder="Search by project, job number (e.g., '922' for partial match), title, or prepared by..."
+                  value={searchTerm}
+                  onChange={(e) => setSearchTerm(e.target.value)}
+                  className="w-full pl-10 pr-4 py-3 border border-gray-300 rounded-lg text-gray-900 placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                />
+              </div>
             </div>
 
             {/* Results Info */}
             <div className="text-gray-600">
               Showing <span className="font-semibold text-gray-900">{filteredDrawings.length}</span> of{" "}
               <span className="font-semibold text-gray-900">{allDrawings.length}</span> drawings
+              {filterProject && <span className="ml-2 text-blue-600">(filtered by {filterProject})</span>}
             </div>
 
             {/* Table */}
@@ -218,7 +255,7 @@ export default function DrawingDatabase() {
         {/* ENTRY TAB */}
         {activeTab === "entry" && (
           <div className="max-w-2xl">
-            <DataEntryForm onAddDrawing={handleAddDrawing} />
+            <DataEntryForm onAddDrawing={handleAddDrawing} onAddProject={handleAddProject} allProjects={allProjects} />
           </div>
         )}
 

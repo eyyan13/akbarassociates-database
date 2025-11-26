@@ -15,14 +15,14 @@ export default function JobSearchUpdate({ drawings, onUpdateDrawing }: JobSearch
   const [editData, setEditData] = useState<Partial<Drawing>>({})
 
   const handleSearch = () => {
-    const found = drawings.find((d) => d.jobNumber.toLowerCase() === searchJobNumber.toLowerCase())
+    const found = drawings.find((d) => d.jobNumber.toLowerCase().startsWith(searchJobNumber.toLowerCase()))
     if (found) {
       setFoundDrawing(found)
       setEditData({})
       setEditMode(false)
     } else {
       setFoundDrawing(null)
-      alert("Job Number not found")
+      alert("Job Number not found. Try searching for the beginning of the number.")
     }
   }
 
@@ -57,6 +57,9 @@ export default function JobSearchUpdate({ drawings, onUpdateDrawing }: JobSearch
   return (
     <div className="card p-8">
       <h2 className="text-2xl font-bold text-gray-900 mb-6">Search & Update by Job Number</h2>
+      <p className="text-gray-600 mb-6 text-sm">
+        Enter the job number or the beginning of it (e.g., "922" will find "922-DU-02")
+      </p>
 
       {!foundDrawing ? (
         <div className="space-y-4">
@@ -66,7 +69,7 @@ export default function JobSearchUpdate({ drawings, onUpdateDrawing }: JobSearch
               value={searchJobNumber}
               onChange={(e) => setSearchJobNumber(e.target.value)}
               onKeyPress={(e) => e.key === "Enter" && handleSearch()}
-              placeholder="Enter Job Number (e.g., 922-DU-02)"
+              placeholder="Enter Job Number (e.g., 922-DU-02 or just 922)"
               className="input-field flex-1"
             />
             <button

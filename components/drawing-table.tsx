@@ -86,7 +86,7 @@ export default function DrawingTable({ drawings, sortBy, sortOrder, onSort }: Dr
               </td>
               <td className="px-4 py-4">
                 <span className="inline-block px-2 py-1 bg-slate-700 rounded text-xs font-medium text-slate-300">
-                  {(drawing as any).finalRevision ?? "-"}
+                  {drawing.finalRevision}
                 </span>
               </td>
               <td className="px-4 py-4">
