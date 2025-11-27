@@ -13,7 +13,13 @@ export default function DrawingDatabase() {
   const [searchTerm, setSearchTerm] = useState("")
   const [sortField, setSortField] = useState<keyof Drawing>("projectName")
   const [sortOrder, setSortOrder] = useState<"asc" | "desc">("asc")
-  const [allDrawings, setAllDrawings] = useState<Drawing[]>(drawingsData as Drawing[])
+  const [allDrawings, setAllDrawings] = useState<Drawing[]>(
+    (drawingsData as any[]).map((d, idx) => ({
+      id: d.id ?? `drawing-${idx}`,
+      preparedBy: d.preparedBy ?? "",
+      ...d,
+    }))
+  )
   const [allProjects, setAllProjects] = useState(projectsData)
   const [activeTab, setActiveTab] = useState<"view" | "entry" | "update" | "import">("view")
   const [filterProject, setFilterProject] = useState<string>("")

@@ -19,14 +19,14 @@ export default function Login({ onLogin }: LoginProps) {
     setError("")
 
     const validCredentials = {
-      username: "director",
-      password: "akbar2024",
+      username: "akbarassociates",
+      password: "akbarasso12024",
     }
 
     if (username === validCredentials.username && password === validCredentials.password) {
       onLogin({ username, password })
     } else {
-      setError("Invalid credentials. Director access only.")
+      setError("Invalid credentials. Admin access only.")
     }
   }
 
@@ -38,7 +38,7 @@ export default function Login({ onLogin }: LoginProps) {
           <Image src="/logo.png" alt="Akbar & Associates Logo" width={80} height={80} priority />
         </div>
 
-        <h1 className="text-2xl font-bold text-center text-gray-900 mb-2">Director Access</h1>
+        <h1 className="text-2xl font-bold text-center text-gray-900 mb-2">Admin Access</h1>
         <p className="text-center text-gray-600 mb-6">Authentication Required</p>
 
         <form onSubmit={handleSubmit} className="space-y-4">

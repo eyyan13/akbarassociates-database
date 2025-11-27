@@ -53,7 +53,7 @@ export default function DrawingTable({ drawings, sortBy, sortOrder, onSort }: Dr
               <SortHeader field="drawingType" label="Type" />
             </th>
             <th className="px-4 py-4 text-left group">
-              <SortHeader field="finalRevision" label="Rev" />
+              <SortHeader field="revision" label="Rev" />
             </th>
             <th className="px-4 py-4 text-left">Actions</th>
           </tr>
@@ -86,7 +86,7 @@ export default function DrawingTable({ drawings, sortBy, sortOrder, onSort }: Dr
               </td>
               <td className="px-4 py-4">
                 <span className="inline-block px-2 py-1 bg-slate-700 rounded text-xs font-medium text-slate-300">
-                  {drawing.finalRevision}
+                  {drawing.revision}
                 </span>
               </td>
               <td className="px-4 py-4">
