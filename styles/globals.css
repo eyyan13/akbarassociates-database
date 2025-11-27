@@ -176,3 +176,7 @@
 .clickable:hover {
   transform: translateY(-1px);
 }
+/* Cursor pointer for clickable elements */
+button, a, [role="button"], input[type="submit"], input[type="button"] {
+  cursor: pointer;
+}
