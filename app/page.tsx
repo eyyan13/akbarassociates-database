@@ -1,7 +1,7 @@
 "use client"
 
 import { useState, useEffect } from "react"
-import Login from "./login" // Ya jo bhi correct path hai
+import Login from "@/components/login"
 
 export default function Home() {
   const [isAuthenticated, setIsAuthenticated] = useState(false)
