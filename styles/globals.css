@@ -180,3 +180,28 @@
 button, a, [role="button"], input[type="submit"], input[type="button"] {
   cursor: pointer;
 }
+/* Cursor pointer for all interactive elements - ADD THIS */
+button, 
+a, 
+[role="button"], 
+input[type="submit"], 
+input[type="button"],
+select,
+summary {
+  cursor: pointer !important;
+}
+
+/* Regular inputs should have text cursor */
+input[type="text"],
+input[type="password"], 
+input[type="email"],
+input[type="number"],
+textarea {
+  cursor: text;
+}
+
+/* Disabled elements */
+button:disabled,
+input:disabled {
+  cursor: not-allowed;
+}
