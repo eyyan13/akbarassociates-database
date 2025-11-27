@@ -161,3 +161,18 @@
     @apply border-b border-gray-200 hover:bg-gray-50 transition-colors;
   }
 }
+/* Add cursor pointer to clickable elements */
+button,
+a,
+[role="button"],
+input[type="submit"],
+input[type="button"],
+select {
+  cursor: pointer;
+}
+.card,
+.sidebar-item,
+.nav-link,
+.menu-item {
+  cursor: pointer;
+}

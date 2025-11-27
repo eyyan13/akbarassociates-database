@@ -11,7 +11,17 @@ const poppins = Poppins({
 export const metadata: Metadata = {
   title: "AKBAR & ASSOCIATES DRAWING MANAGEMENT SYSTEM",
   description: "Professional drawing database management system for Akbar & Associates Consulting Engineers",
-  generator: 'v0.app'
+  icons: {
+    icon: "/logo.png",            // Favicon (PNG)
+    shortcut: "/logo.png",        // Shortcut icon
+    apple: "/logo.png",           // Apple devices
+    other: [
+      { rel: "icon", url: "/logo.png", sizes: "32x32" },
+      { rel: "icon", url: "/logo.png", sizes: "192x192" },
+      { rel: "icon", url: "/logo.png", sizes: "512x512" }
+    ]
+  },
+  generator: "v0.app",
 }
 
 export default function RootLayout({
@@ -23,7 +33,6 @@ export default function RootLayout({
     <html lang="en">
       <body className={`${poppins.className} bg-white text-gray-900`}>
         {children}
-        {/* Analytics remove kiya - cPanel compatible */}
       </body>
     </html>
   )
